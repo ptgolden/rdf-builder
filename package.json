@@ -1,14 +1,20 @@
 {
-  "name": "n3-triple-builder",
+  "name": "rdf-triple-builder",
   "version": "1.0.0",
-  "description": "",
+  "description": "Conveniently construct RDF triples",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ptgolden/rdf-triple-builder"
+  },
   "main": "index.js",
   "scripts": {
     "test": "tape test.js"
   },
   "keywords": [
     "rdf",
-    "n3"
+    "n3",
+    "triples",
+    "graph"
   ],
   "author": "Patrick Golden",
   "license": "MIT",
