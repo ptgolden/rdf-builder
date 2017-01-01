@@ -1,0 +1,21 @@
+{
+  "name": "n3-triple-builder",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "tape test.js"
+  },
+  "keywords": [
+    "rdf",
+    "n3"
+  ],
+  "author": "Patrick Golden",
+  "license": "MIT",
+  "dependencies": {
+    "n3": "^0.8.5"
+  },
+  "devDependencies": {
+    "tape": "^4.6.3"
+  }
+}
