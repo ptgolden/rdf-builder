@@ -47,3 +47,43 @@ test('Multiple triple builder', t => {
     }
   ])
 })
+
+test('Namespace expansion', t => {
+  t.plan(1);
+
+  const $ = require('./')({
+    prefixes: {
+      ex: 'http://example.com/'
+    }
+  })
+
+  const triple = $('ex:s')('ex:p')('ex:o')
+
+  t.deepEqual(triple, {
+    subject: 'http://example.com/s',
+    predicate: 'http://example.com/p',
+    object: 'http://example.com/o'
+  })
+})
+
+test('Factory functions as properties', t => {
+  t.plan(1);
+
+  const $ = require('./')({
+    prefixes: {
+      ex: 'http://example.com/'
+    }
+  })
+
+  const s = $('ex:s')
+      , p = $('ex:p')
+      , o = $('ex:o')
+
+  const triple = s(p)(o)
+
+  t.deepEqual(triple, {
+    subject: 'http://example.com/s',
+    predicate: 'http://example.com/p',
+    object: 'http://example.com/o'
+  })
+})
