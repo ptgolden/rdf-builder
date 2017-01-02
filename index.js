@@ -1,9 +1,12 @@
 "use strict";
 
 const Util = require('n3/lib/N3Util')
+    , subjectURI = Symbol('subjectURI')
 
 function formatProperty({ prefixes }, val) {
-  val = val.toString();
+  if (val[subjectURI]) {
+    val = val[subjectURI];
+  }
 
   if (Util.isLiteral(val)) {
     return val;
@@ -33,12 +36,16 @@ module.exports = function (opts) {
   const fmt = formatTriple.bind(null, opts)
 
   return subject => {
-    const func = value =>
-      typeof value === 'object'
-        ? expand(subject, value).map(fmt)
-        : object => fmt({ subject, predicate: value, object })
+    const func = predicate =>
+      typeof predicate === 'object'
+        ? expand(subject, predicate).map(fmt)
+        : Object.assign(object => fmt({ subject, predicate, object }), {
+            subject,
+            predicate
+          })
 
-    func.toString = () => subject;
+    func[subjectURI] = subject;
+    func.subject = subject;
 
     return func;
   }
