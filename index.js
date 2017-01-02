@@ -17,12 +17,18 @@ function formatProperty({ prefixes }, val) {
   }
 }
 
-function formatTriple(opts, { subject, predicate, object }) {
-  return {
+function formatStatement(opts, { subject, predicate, object }) {
+  const ret = {
     subject: formatProperty(opts, subject),
     predicate: formatProperty(opts, predicate),
     object: formatProperty(opts, object),
   }
+
+  if (opts.graph) {
+    ret.graph = formatProperty(opts, opts.graph)
+  }
+
+  return ret;
 }
 
 function expand(subject, value) {
@@ -33,7 +39,8 @@ function expand(subject, value) {
 }
 
 module.exports = function (opts) {
-  const fmt = formatTriple.bind(null, opts)
+  const fmt = formatStatement.bind(null, opts)
+      , { graph } = opts
 
   return subject => {
     const func = predicate =>
@@ -42,11 +49,14 @@ module.exports = function (opts) {
         : Object.assign(object => fmt({ subject, predicate, object }), {
             subject,
             predicate
-          })
+          }, graph ? { graph } : {} )
 
     func[subjectURI] = subject;
     func.subject = subject;
     func.toJSON = () => subject;
+    if (graph) {
+      func.graph = graph;
+    }
 
     return func;
   }

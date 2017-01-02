@@ -2,7 +2,7 @@
 
 const test = require('tape')
 
-test('Single triple builder', t => {
+test('Triple builder', t => {
   t.plan(5);
 
   const $ = require('./')({})
@@ -23,6 +23,22 @@ test('Single triple builder', t => {
 
   t.equal(JSON.stringify($('http://example.com/s')), '"http://example.com/s"');
 })
+
+test('Quad builder', t => {
+  t.plan(1);
+
+  const $ = require('./')({ graph: 'http://example.com/g' })
+
+  const quad = $('http://example.com/s')('http://example.com/p')('http://example.com/o');
+
+  t.deepEqual(quad, {
+    graph: 'http://example.com/g',
+    subject: 'http://example.com/s',
+    predicate: 'http://example.com/p',
+    object: 'http://example.com/o'
+  })
+})
+
 
 test('Multiple triple builder', t => {
   t.plan(1);
