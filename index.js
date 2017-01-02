@@ -46,6 +46,7 @@ module.exports = function (opts) {
 
     func[subjectURI] = subject;
     func.subject = subject;
+    func.toJSON = () => subject;
 
     return func;
   }

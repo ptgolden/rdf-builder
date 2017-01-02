@@ -3,7 +3,7 @@
 const test = require('tape')
 
 test('Single triple builder', t => {
-  t.plan(4);
+  t.plan(5);
 
   const $ = require('./')({})
 
@@ -18,8 +18,10 @@ test('Single triple builder', t => {
   const partialTriple = $('http://example.com/s')('http://example.com/p')
 
   t.ok(typeof partialTriple === 'function');
-  t.deepEqual(partialTriple.subject, 'http://example.com/s')
-  t.deepEqual(partialTriple.predicate, 'http://example.com/p')
+  t.equal(partialTriple.subject, 'http://example.com/s')
+  t.equal(partialTriple.predicate, 'http://example.com/p')
+
+  t.equal(JSON.stringify($('http://example.com/s')), '"http://example.com/s"');
 })
 
 test('Multiple triple builder', t => {
