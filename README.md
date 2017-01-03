@@ -10,7 +10,7 @@ const prefixes = {
 
 const $ = require('rdf-statements')({ prefixes })
 
-console.log($('ex:Alice')('foaf:knows')('ex:Bob'))
+$('ex:Alice')('foaf:knows')('ex:Bob')
 /* { subject: 'http://example.com/#Alice'
    , predicate: 'http://xmlns.com/foaf/0.1/knows'
    , object: 'http://example.com/#Bob' } */
