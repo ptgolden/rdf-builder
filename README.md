@@ -5,7 +5,7 @@ conveniently build [RDF](http://w3.org/RDF) triples and quads.
 ```js
 const prefixes = {
   ex: 'http://example.com/#',
-  foaf: require('lov-list/foaf')
+  foaf: require('lov-ns/foaf')
 }
 
 const $ = require('rdf-builder')({ prefixes })
@@ -41,12 +41,12 @@ For brevity, the following example will assume that the variable `$` represents
 the statement builder after its options have been supplied. We will proceed
 assuming that we will be building triples (not quads), and we will define two
 namesapce prefixes: `ex`, and `foaf`, with the latter pulled from the
-[lov-list](http://npmjs.com/package/lov-list) NPM package.
+[lov-ns](http://npmjs.com/package/lov-ns) NPM package.
 
 ```js
 const prefixes = {
   ex: 'http://example.com/#',
-  foaf: require('lov-list/foaf')
+  foaf: require('lov-ns/foaf')
 }
 
 const $ = require('rdf-builder')({ prefixes })
