@@ -11,9 +11,9 @@ const prefixes = {
 const $ = require('rdf-builder')({ prefixes })
 
 $('ex:Alice')('foaf:knows')('ex:Bob')
-/* { subject: 'http://example.com/#Alice'
-   , predicate: 'http://xmlns.com/foaf/0.1/knows'
-   , object: 'http://example.com/#Bob' } */
+// { subject: 'http://example.com/#Alice'
+// , predicate: 'http://xmlns.com/foaf/0.1/knows'
+// , object: 'http://example.com/#Bob' }
 ```
 
 
@@ -67,7 +67,9 @@ treated as the predicate and object of the triple.
 
 ```js
 $('ex:s')('ex:p')('ex:o')
-// Object({ subject, predicate, object })
+// { subject: 'http://example.com/#s'
+// , predicate: 'http://example.com/#p'
+// , object: 'http://example.com/#o' }
 ```
 
 To build multiple triples, apply one more argument: a JS Object whose keys will
