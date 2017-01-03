@@ -1,10 +1,10 @@
 {
-  "name": "rdf-statements",
+  "name": "rdf-builder",
   "version": "1.0.1",
   "description": "Conveniently construct RDF triples",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ptgolden/rdf-triple-builder"
+    "url": "https://github.com/ptgolden/rdf-builder"
   },
   "main": "index.js",
   "scripts": {

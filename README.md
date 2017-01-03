@@ -1,4 +1,4 @@
-# RDF Statements
+# RDF Builder
 Utility library built on top of [N3](http://npmjs.com/package/n3) to
 conveniently build [RDF](http://w3.org/RDF) triples and quads.
 
@@ -8,7 +8,7 @@ const prefixes = {
   foaf: require('lov-list/foaf')
 }
 
-const $ = require('rdf-statements')({ prefixes })
+const $ = require('rdf-builder')({ prefixes })
 
 $('ex:Alice')('foaf:knows')('ex:Bob')
 /* { subject: 'http://example.com/#Alice'
@@ -23,7 +23,7 @@ This library provides a single, curried function.
 It must first be called with an options object.
 
 ```js
-statementBuilder(opts)
+require('rdf-builder')(opts)
 // Function
 ```
 
@@ -49,7 +49,7 @@ const prefixes = {
   foaf: require('lov-list/foaf')
 }
 
-const $ = require('rdf-statements')({ prefixes })
+const $ = require('rdf-builder')({ prefixes })
 ```
 
 The resultant function must be called with a URI that will be the subject
