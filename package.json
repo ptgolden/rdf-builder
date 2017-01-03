@@ -1,5 +1,5 @@
 {
-  "name": "rdf-triple-builder",
+  "name": "rdf-statements",
   "version": "1.0.1",
   "description": "Conveniently construct RDF triples",
   "repository": {

@@ -1,15 +1,19 @@
-# RDF Triple Builder
-Utility library built on top of [N3](http://npmjs.com/package/n3) to conveniently build groups of RDF triples.
+# RDF Statements
+Utility library built on top of [N3](http://npmjs.com/package/n3) to
+conveniently build [RDF](http://w3.org/RDF) triples and quads.
 
 ```js
-const $ = require('triple-builder')({
-  prefixes: { ex: 'http://example.com/' }
-})
+const prefixes = {
+  ex: 'http://example.com/#',
+  foaf: require('lov-list/foaf')
+}
 
-console.log($('ex:s')('ex:p')('ex:o'))
-/* { subject: 'http://example.com/s'
-   , predicate: 'http://example.com/p'
-   , object: 'http://example.com/o' } */
+const $ = require('rdf-statements')({ prefixes })
+
+console.log($('ex:Alice')('foaf:knows')('ex:Bob'))
+/* { subject: 'http://example.com/#Alice'
+   , predicate: 'http://xmlns.com/foaf/0.1/knows'
+   , object: 'http://example.com/#Bob' } */
 ```
 
 
@@ -19,15 +23,40 @@ This library provides a single, curried function.
 It must first be called with an options object.
 
 ```js
-tripleBuilder({ prefixes })
+statementBuilder(opts)
 // Function
+```
+
+There are two optional options:
+
+  * **prefixes** (object): An object of key-value pairs to expand prefixed
+    names. This library uses the same prefix notation as Turtle
+    (`prefix:restOfIdentifier`)
+
+  * **graph** (string): If provided, the builder will construct RDF quads with
+    the graph set to this value. If the graph is omitted, it will construct
+    RDF triples.
+
+For brevity, the following example will assume that the variable `$` represents
+the statement builder after its options have been supplied. We will proceed
+assuming that we will be building triples (not quads), and we will define two
+namesapce prefixes: `ex`, and `foaf`, with the latter pulled from the
+[lov-list](http://npmjs.com/package/lov-list) NPM package.
+
+```js
+const prefixes = {
+  ex: 'http://example.com/#',
+  foaf: require('lov-list/foaf')
+}
+
+const $ = require('rdf-statements')({ prefixes })
 ```
 
 The resultant function must be called with a URI that will be the subject
 of the triple.
 
 ```js
-tripleBuilder({ prefixes })('ex:s')
+$('ex:s')
 // Function
 ```
 
@@ -37,7 +66,7 @@ To build a single triple, simply supply two more arguments that will be
 treated as the predicate and object of the triple.
 
 ```js
-tripleBuilder({ prefixes })('ex:s')('ex:p')('ex:o')
+$('ex:s')('ex:p')('ex:o')
 // Object({ subject, predicate, object })
 ```
 
@@ -46,7 +75,7 @@ be treated as predicates, and whose values will be treated as objects. If a
 value is an array, triples will be returned for each element as an RDF object.
 
 ```js
-tripleBuilder({ prefixes })('ex:s')({
+$('ex:s')({
   'ex:p1': 'ex:o1',
   'ex:p2': [
     'ex:o2',
@@ -60,11 +89,10 @@ When only one property (i.e. the subject) has been supplied, the resultant
 function can also be used as a property in building other triples.
 
 ```js
-const $ = tripleBuilder({ prefixes })
-    , s = $('ex:s')
-    , p = $('ex:p')
-    , o = $('ex:o')
+const s = $('ex:Alice')
+    , p = $('foaf:knows')
+    , o = $('ex:Bob')
 
 s(p)(o)
-// Produces the same output as s('ex:p')('ex:o')
+// Produces the same output as s('foaf:knows')('ex:Bob')
 ```
