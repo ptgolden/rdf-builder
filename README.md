@@ -82,7 +82,10 @@ $('ex:s')({
     'ex:o3',
   ]
 })
-// Array of 3 triple objects
+// Array of 3 triple objects for these statments:
+// ex:s -> ex:p1 -> ex:o1
+// ex:s -> ex:p2 -> ex:o2
+// ex:s -> ex:p2 -> ex:o3
 ```
 
 When only one property (i.e. the subject) has been supplied, the resultant
