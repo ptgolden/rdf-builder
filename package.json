@@ -1,6 +1,6 @@
 {
   "name": "rdf-builder",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "description": "Conveniently construct RDF triples",
   "repository": {
     "type": "git",
