@@ -38,11 +38,11 @@ function expand(subject, value) {
         : { subject, predicate, object: value[predicate] }))
 }
 
-module.exports = function (opts) {
+function rdfBuilder(opts={}) {
   const fmt = formatStatement.bind(null, opts)
       , { graph } = opts
 
-  return subject => {
+  const ret = subject => {
     const func = predicate =>
       typeof predicate === 'object'
         ? expand(subject, predicate).map(fmt)
@@ -60,4 +60,10 @@ module.exports = function (opts) {
 
     return func;
   }
+
+  ret.withGraph = graph => rdfBuilder(Object.assign({}, opts, { graph }))
+
+  return ret;
 }
+
+module.exports = rdfBuilder;

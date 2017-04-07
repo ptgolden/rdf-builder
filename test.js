@@ -25,18 +25,33 @@ test('Triple builder', t => {
 })
 
 test('Quad builder', t => {
-  t.plan(1);
+  t.plan(2);
 
-  const $ = require('./')({ graph: 'http://example.com/g' })
+  {
+    const $ = require('./')({ graph: 'http://example.com/g' })
 
-  const quad = $('http://example.com/s')('http://example.com/p')('http://example.com/o');
+    const quad = $('http://example.com/s')('http://example.com/p')('http://example.com/o');
 
-  t.deepEqual(quad, {
-    graph: 'http://example.com/g',
-    subject: 'http://example.com/s',
-    predicate: 'http://example.com/p',
-    object: 'http://example.com/o'
-  })
+    t.deepEqual(quad, {
+      graph: 'http://example.com/g',
+      subject: 'http://example.com/s',
+      predicate: 'http://example.com/p',
+      object: 'http://example.com/o'
+    }, 'should allow generating quads')
+  }
+
+  {
+    const $ = require('./')()
+
+    const quad = $.withGraph('g')('s')('p')('o');
+
+    t.deepEqual(quad, {
+      subject: 's',
+      predicate: 'p',
+      object: 'o',
+      graph: 'g',
+    }, 'should allow setting graph with `withGraph`.')
+  }
 })
 
 
