@@ -3,7 +3,7 @@
 const test = require('tape')
 
 test('Triple builder', t => {
-  t.plan(5);
+  t.plan(4);
 
   const $ = require('./')({})
 
@@ -15,43 +15,28 @@ test('Triple builder', t => {
     object: 'http://example.com/o'
   })
 
+  t.deepEqual(triple, $('http://example.com/s', 'http://example.com/p', 'http://example.com/o'))
+
   const partialTriple = $('http://example.com/s')('http://example.com/p')
 
   t.ok(typeof partialTriple === 'function');
-  t.equal(partialTriple.subject, 'http://example.com/s')
-  t.equal(partialTriple.predicate, 'http://example.com/p')
-
   t.equal(JSON.stringify($('http://example.com/s')), '"http://example.com/s"');
 })
 
 test('Quad builder', t => {
-  t.plan(2);
+  t.plan(1);
 
-  {
-    const $ = require('./')({ graph: 'http://example.com/g' })
+  const $ = require('./')({ graph: 'http://example.com/g' })
 
-    const quad = $('http://example.com/s')('http://example.com/p')('http://example.com/o');
+  const quad = $('http://example.com/s')('http://example.com/p')('http://example.com/o');
 
-    t.deepEqual(quad, {
-      graph: 'http://example.com/g',
-      subject: 'http://example.com/s',
-      predicate: 'http://example.com/p',
-      object: 'http://example.com/o'
-    }, 'should allow generating quads')
-  }
+  t.deepEqual(quad, {
+    graph: 'http://example.com/g',
+    subject: 'http://example.com/s',
+    predicate: 'http://example.com/p',
+    object: 'http://example.com/o'
+  }, 'should allow generating quads')
 
-  {
-    const $ = require('./')()
-
-    const quad = $.withGraph('g')('s')('p')('o');
-
-    t.deepEqual(quad, {
-      subject: 's',
-      predicate: 'p',
-      object: 'o',
-      graph: 'g',
-    }, 'should allow setting graph with `withGraph`.')
-  }
 })
 
 
