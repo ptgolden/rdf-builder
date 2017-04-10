@@ -56,7 +56,7 @@ test('Quad builder', t => {
 
 
 test('Multiple triple builder', t => {
-  t.plan(1);
+  t.plan(2);
 
   const $ = require('./')({})
 
@@ -85,6 +85,18 @@ test('Multiple triple builder', t => {
       object: 'http://example.com/o2',
     }
   ])
+
+  const triples2 = $({
+    'http://example.com/s': {
+      'http://example.com/p1': [
+        'http://example.com/o1a',
+        'http://example.com/o1b',
+      ],
+      'http://example.com/p2': 'http://example.com/o2'
+    }
+  })
+
+  t.deepEqual(triples, triples2);
 })
 
 test('Namespace expansion', t => {

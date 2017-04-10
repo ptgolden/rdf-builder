@@ -90,6 +90,20 @@ $('ex:s')({
 // ex:s -> ex:p2 -> ex:o3
 ```
 
+The same array of triples can be produced by using a nested object.
+
+```js
+$({
+  'ex:s': {
+    'ex:p1': 'ex:o1',
+    'ex:p2': [
+      'ex:o2',
+      'ex:o3',
+    ]
+  }
+})
+```
+
 When only one property (i.e. the subject) has been supplied, the resultant
 function can also be used as a property in building other triples.
 

@@ -43,6 +43,11 @@ function rdfBuilder(opts={}) {
       , { graph } = opts
 
   const ret = subject => {
+    if (subject.constructor === Object) {
+      return [].concat(...Object.keys(subject).map(subj =>
+        expand(subj, subject[subj])))
+    }
+
     const func = predicate =>
       typeof predicate === 'object'
         ? expand(subject, predicate).map(fmt)
